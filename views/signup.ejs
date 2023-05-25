@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">  
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+    <div class="w-screen shadow-md flex flex-wrap">
+        <div class="logo mr-96">
+             <a href="http://localhost:8000/"> <img class=" h-25 w-36" src="img/SastaCodeChefLogo.png" alt="SastaCodeChefLogo">
+             </a>   
+            </div>
+
+
+        <!-- <div class="px-6 pt-8 mx-28 font-light">
+            <ul class="flex space-x-5 text-base  ">
+                <a href="#" > <li>Learn</li> </a>
+               <a href="http://localhost:8000/questions" > <li>Code</li> </a>
+               <a href="http://localhost:8000/submissions" > <li>Submissions</li> </a>
+
+            </ul>
+        </div>
+
+        <div class="login-signup pt-8 text-base font-light space-x-5">
+            <!-- <a class="p-1 border-2" href="http://localhost:8000/login">Login</a> -->
+<!-- 
+            <a class="p-1 border-2" href="http://localhost:8000/signup">SignUp</a>
+
+        </div>  -->
+
+    </div>
+
+    <h1 class="text-2xl m-3">SignUp </h1>
+    <div class="m-8 p-16 login-form ">
+        
+        <form action="http://localhost:5500/api/signup" method="POST" >
+           
+            <label for="username">Username:</label>
+            <input class="bg-slate-200 p-2 border-1 rounded m-2" type="text" name="username" placeholder="type username">
+            <br>
+            
+            
+            <label for="name">Name:</label>
+            <input class="bg-slate-200 p-2 border-1 rounded m-2" type="text" name="name" placeholder="type name">
+            <br>
+            
+            <label for="email">Email:</label>
+            <input class="bg-slate-200 p-2 border-1 rounded m-2" type="email" name="email" placeholder="type email">
+            <br>
+            
+            
+            <label for="password">Password</label>
+            <input class="bg-slate-200 p-2 border-1 rounded m-2" type="password" name="password" placeholder="type password">
+            <br>
+            
+            <button class="m-2 bg-blue-500 text-white p-0.5 px-3 rounded" type="submit">SignUp </button>
+
+
+
+        </form>
+    </div>
+
+</body>
+</html>
