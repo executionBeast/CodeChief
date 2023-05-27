@@ -2,14 +2,26 @@ const express  = require('express')
 const route = express.Router()
 const user = require('../model/model');
 
-route.get('/',function (req,res){
+route.get('/', async function (req,res){
+    if(!req.cookies.userid){
+        res.render("index.ejs",{data:{username:"",name:"",email:""}})
+    }
+    await user.findById(req.cookies.userid)
+    .then(userData=>{
+        res.render("index.ejs",{data:userData})
+    })
     
+
 })
 
 
 
 route.get('/login', function(req,res){
-    res.render('login.ejs')
+    if(!req.cookies.userid){
+        res.render('login.ejs')
+
+    }
+    res.redirect("/")
 })
 
 route.get('/signup', (req,res)=>[
@@ -53,10 +65,20 @@ route.post('/api/signup',async (req,res) => {
 
 });
 
-route.post('/api/login',(req,res) =>{
-    if(!req){
+route.post('/api/login', async (req,res) =>{
+    if(!req.body){
         res.response("Fields can't be empty")
     }
+    await user.findOne({email:req.body.email,password:req.body.password})
+    .then(userData=>{
+        res.cookie('userid' ,userData._id);
+
+        res.redirect("/")
+    })
+    .catch(e=>{
+        console.log(e)
+    })
+
 
 
 })

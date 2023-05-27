@@ -1,27 +1,17 @@
 <%- include("include/header.ejs") %>
+
+
 <%=data %>
-
-<% if (sessTime) { %>
-    <h2><%= sessTime %></h2>
-  <% } %>
-
+<script>
+  console.log(document.cookie);
+  if(document.cookie){
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('signup').style.display = 'none';
+    
+  }
+  
+</script>
 
 
 <div id="container">Container</div>
 <button class="m-2 bg-blue-500 text-white p-0.5 px-3 rounded btn-dummy">CLick Me!</button>
-
-
-
-<script>
-    
-    
-
-
-
-    // $(document).ready(function(){
-    //     $('.btn-dummy').click(function(){
-    //         $('#container').load('http://localhost:8000',()=>{alert('Done!')})
-    //     })
-    // })
-
-</script>
