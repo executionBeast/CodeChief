@@ -3,17 +3,7 @@ const route = express.Router()
 const user = require('../model/model');
 
 route.get('/',function (req,res){
-    // if(document.cookie){
-    //     res.json({"content":"Sastaa CodeChef!"})
-    // }
-    // req.session.views = 1  //it is a way to store data in session
-    if(req.session.name){
-        res.render('index.ejs',{data:req.session.name,sessTime:"will destroyed in 10 sec"})
-    }
-    else{
-        req.session.name = 'ROHAN'
-    res.render('index.ejs',{data:req.session.name,sessTime:"sessTime is Set now"})
-    }
+    
 })
 
 
