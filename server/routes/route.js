@@ -1,32 +1,39 @@
 const express  = require('express')
 const route = express.Router()
-const user = require('../model/model');
+const user = require('../model/user');
+const bcrypt = require('bcrypt')
+
+
+
+//bcrypt args
+const salt = 10;
 
 route.get('/', async function (req,res){
-    if(!req.cookies.userid){
-        res.render("index.ejs",{data:{username:"",name:"",email:""}})
-    }
+
     await user.findById(req.cookies.userid)
     .then(userData=>{
         res.render("index.ejs",{data:userData})
     })
-    
-
 })
 
 
 
 route.get('/login', function(req,res){
-    if(!req.cookies.userid){
+    if(req.cookies.userid){
+        res.redirect("/")
+
+    }
+    else{
         res.render('login.ejs')
 
     }
-    res.redirect("/")
 })
 
-route.get('/signup', (req,res)=>[
+
+
+route.get('/signup', (req,res)=>{
     res.render("signup.ejs")
-])
+})
 
 route.get('/learn',(req,res)=>{
     res.render('learn');
@@ -43,42 +50,62 @@ route.get("/submissions",(req,res)=>{
 
 //API Routes
 route.post('/api/signup',async (req,res) => {
-    if(req){
-        console.log(req.body)
+    if(!req.body){
+        res.send("some error occured")
     }
-    //logic of creating user in mongo database
-    const userData = new user({
-        name:req.body.name,
-        email:req.body.email,
-        password:req.body.password
-    })
+    else{
+        //logic of creating user in mongo database
+        await bcrypt.hash(req.body.password,salt,async (err,hash)=>{
+            
+            if(err){
+                console.log(err)
+            }
 
-    userData
-    .save(userData)
-    .then(data =>{
-        res.redirect('/login')
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
+            else{
+            const userData = new user({
+                username:req.body.username,
+                name:req.body.name,
+                email:req.body.email,
+                password:hash
+            })
+    
+            await userData
+            .save(userData)
+            .then(data =>{
+                res.redirect('/login')
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+            
+        }
+        })
+       
 
-
+    }
 });
 
 route.post('/api/login', async (req,res) =>{
-    if(!req.body){
-        res.response("Fields can't be empty")
+    if(!req.body){  
+        res.send("Fields can't be empty")
     }
-    await user.findOne({email:req.body.email,password:req.body.password})
-    .then(userData=>{
-        res.cookie('userid' ,userData._id);
+    else{
 
-        res.redirect("/")
-    })
-    .catch(e=>{
-        console.log(e)
-    })
-
+        await user.findOne({email:req.body.email})
+        
+        .then(userData=>{
+            // let isPaas = await bcrypt.compare(req.body.password,userData.password);
+            
+            res.cookie('userid' ,userData._id);
+            console.log(userData)
+            res.redirect("/")
+        })
+        .catch(e=>{
+            res.send(e)
+            console.log(e)
+        })
+    
+}
 
 
 })

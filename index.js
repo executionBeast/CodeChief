@@ -5,12 +5,12 @@ const PORT  =5500
 const app = express()
 const route = require('./server/routes/route')
 const connectDb = require('./server/database/connectDb')
+const dotenv = require('dotenv')
 const cookieparser = require('cookie-parser')
 
 
 app.set('title','Sasta Codechef')  //referenced by app.get('title')
 app.set('view engine', 'ejs')
-app.set('trust proxy',1)
 
 
 app.use(cookieparser())   //cookie-parser
