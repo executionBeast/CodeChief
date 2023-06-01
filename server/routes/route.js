@@ -62,22 +62,22 @@ route.post('/api/signup',async (req,res) => {
             }
 
             else{
-            const userData = new user({
-                username:req.body.username,
-                name:req.body.name,
-                email:req.body.email,
-                password:hash
-            })
-    
-            await userData
-            .save(userData)
-            .then(data =>{
-                res.redirect('/login')
-            })
-            .catch((err)=>{
-                console.log(err)
-            })
-            
+                const userData = new user({
+                    username:req.body.username,
+                    name:req.body.name,
+                    email:req.body.email,
+                    password:hash
+                })
+        
+                await userData
+                .save(userData)
+                .then(data =>{
+                    res.redirect('/login')
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
+                
         }
         })
        
@@ -89,16 +89,25 @@ route.post('/api/login', async (req,res) =>{
     if(!req.body){  
         res.send("Fields can't be empty")
     }
+    
     else{
 
         await user.findOne({email:req.body.email})
         
-        .then(userData=>{
+        .then(async (userData)=>{
             // let isPaas = await bcrypt.compare(req.body.password,userData.password);
+            bcrypt.compare(req.body.password,userData.password,(err,result)=>{
+                
+                if(result){
+                    res.cookie('userid' ,userData._id);
+                    console.log(userData)
+                    res.redirect("/")
+                }
+                else{
+                    res.send("Wrong Password!")
+                }
+            })
             
-            res.cookie('userid' ,userData._id);
-            console.log(userData)
-            res.redirect("/")
         })
         .catch(e=>{
             res.send(e)
