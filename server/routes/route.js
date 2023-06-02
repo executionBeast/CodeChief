@@ -48,6 +48,15 @@ route.get("/submissions",(req,res)=>{
 })  
 
 
+
+route.get("/logout",(req,res)=>{
+    res.clearCookie('userid');
+    res.redirect("/")
+
+})
+
+
+
 //API Routes
 route.post('/api/signup',async (req,res) => {
     if(!req.body){
