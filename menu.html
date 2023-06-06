@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .dropdown{
+            position:relative;
+
+        }
+
+        .btn-menu{
+
+        }
+
+        .content{
+            display: none;
+            position:absolute;
+
+        }
+
+        .content a{
+            color:red;
+        }
+
+        .dropdown:hover .content {
+            display:block;
+        }
+        .content ul{
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+<body>
+    
+</body>
+</html>
+
+<div class="dropdown">
+    <button class="btn-menu">Menu</button>
+    <div class="content">
+        <ul>
+        <li><a href="#">My Profile</a></li>
+        <li><a href="#">Edit Profile</a></li>
+        <li><a href="#">Logout</a></li>
+    </ul>
+    
+    </div>
+
+</div>

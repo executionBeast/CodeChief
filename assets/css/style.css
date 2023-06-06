@@ -13,6 +13,41 @@
 }
 
 
+.profile-img{
+  border-radius: 100%;
+}
+
+.profile{
+  position:relative;
+  display:none;
+}
+
+
+.profile-dropdown{
+  display: none;
+  border-top:6px solid forestgreen;
+  padding-left: 2rem;
+  top:3rem;
+  left:-47px;
+  position:absolute;
+  width:20vh;
+  background-color: #baafaf;
+}
+
+.profile-dropdown ul li{
+  margin:4px 0px;
+  padding: 2px;
+
+  }
+
+  .profile-dropdown ul li a{
+    padding: 2px;
+  
+    }
+  
+.profile:hover .profile-dropdown{display: block;}
+
+
 
 *,
 ::before,
